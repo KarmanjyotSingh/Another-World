@@ -1,6 +1,6 @@
 # Pikachu Rescue 
 <img src = "images/game.png">
-
+---
 ## How to run the game
 
 ```
@@ -10,7 +10,7 @@ cmake ..
 make 
 ./app
 ```
-
+---
 - An simple 2-d game built using OpenGL library , and written in C++.
 - Game consists of 3 levels , with each level the difficulty increases
   - the number of walls 
