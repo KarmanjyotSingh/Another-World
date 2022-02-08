@@ -1,6 +1,8 @@
 # Pikachu Rescue 
 <img src = "images/game.png">
+
 ---
+
 ## How to run the game
 
 ```
