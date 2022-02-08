@@ -5,11 +5,12 @@ project(app)
 # Source files
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libraries")
-set(INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
-file(GLOB SOURCES "${SRC_DIR}/*.cpp")
+#set(INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
+#file(GLOB SOURCES "${SRC_DIR}/*.cpp")
+file(GLOB SOURCES "${SRC_DIR}/*.cpp" "${SRC_DIR}/*/*.cpp")
 
 # Executable definition and properties
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} src/game.h src/sprite_renderer.h src/sprite_renderer.cpp)
 target_include_directories(${PROJECT_NAME} PRIVATE "${INC_DIR}")
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 
@@ -35,19 +36,15 @@ target_link_libraries(${PROJECT_NAME} "glad" "${CMAKE_DL_LIBS}")
 set(GLM_DIR "${LIB_DIR}/glm")
 target_include_directories(${PROJECT_NAME} PRIVATE "${GLM_DIR}")
 
-# MAC
-include(FindPkgConfig)
-if (NOT APPLE)
-  pkg_check_modules(GL REQUIRED gl)
-  include_directories(${GL_INCLUDE_DIRS})
-  target_link_libraries (${PROJECT_NAME} ${GL_LIBRARIES})
-endif()
-
-if (APPLE)
-  target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
-endif()
-
 # GLEW
-pkg_check_modules(GLEW REQUIRED glew)
-include_directories(${GLEW_INCLUDE_DIRS})
-target_link_libraries (${PROJECT_NAME} ${GLEW_LIBRARIES})
+# pkg_check_modules(GLEW REQUIRED glew)
+# include_directories(${GLEW_INCLUDE_DIRS})
+# target_link_libraries (${PROJECT_NAME} ${GLEW_LIBRARIES})
+find_package(Freetype REQUIRED)
+target_link_libraries(${PROJECT_NAME} ${FREETYPE_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${FREETYPE_INCLUDE_DIRS})
+
+#ft2
+find_package(Freetype REQUIRED)
+target_link_libraries(${PROJECT_NAME} ${FREETYPE_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${FREETYPE_INCLUDE_DIRS})
